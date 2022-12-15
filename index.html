@@ -4,25 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon.ico">
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"/>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
     <title>Kinopoisk-VUE</title>
 </head>
 <body>
 
-    <header class="container">
-        <div class="header__content">
-          <a href="index.html" class="header__logo">MovieApp</a>
-          <form>
-            <input type="text" class="header__search" placeholder="Поиск" />
-          </form>
+    <div id="app" v-cloak>
+      <header class="container">
+          <div class="header__content">
+            <a href="index.html" class="header__logo">Kinopoisk</a>
+            <form @submit.prevent="submitHandler">
+              <input type="text" 
+              class="header__search" 
+              placeholder="Поиск" 
+              v-model="inputValue"/>
+            </form>
+          </div>
+        </header>
+        <div class="container">
+          <div class="movies">
+            <app-movie
+              v-for="movie in movies"
+              :key="movie"
+              :nameru="movie.nameRu"
+              :posterpreview="movie.posterUrlPreview"
+              :genres="movie.genres"
+              :rating="movie.rating"
+            ></app-movie>
+          </div>
         </div>
-      </header>
-      <div class="container">
-        <div class="movies"></div>
-      </div>
+    </div>
+
       
-<script src="./app.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./app.js"></script>
 </body>
 </html>

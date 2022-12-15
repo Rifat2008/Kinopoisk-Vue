@@ -10,22 +10,23 @@
   }
   
   .container {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
+    padding: 0 20px;
   }
   
   .header__content {
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
-    height: 60px;
   }
   
   .header__logo {
     font-size: 32px;
     text-decoration: none;
     color: #ffffff;
+    text-transform: uppercase;
   }
   
   .header__search {
@@ -33,6 +34,10 @@
     border: 2px solid #1a191f;
     border-radius: 5px;
     outline: none;
+  }
+
+  .header__search:focus {
+    border: 2px solid #25ad37;
   }
   
   .movies {
@@ -43,8 +48,12 @@
   
   .movie {
     width: 240px;
-    margin: 10px;
+    margin: 10px; 
     position: relative;
+  }
+
+  .movie:nth-child(1n + 13) {
+    display: none;
   }
   
   .movie__cover-inner {
@@ -105,15 +114,15 @@
   }
   
   .movie__average--green {
-    border: 1px solid green;
+    background-color:green;
   }
   
   .movie__average--orange {
-    border: 1px solid orange;
+    background-color:orange;
   }
   
   .movie__average--red {
-    border: 1px solid red;
+    background-color:red;
   }
-  Footer
+  
  
