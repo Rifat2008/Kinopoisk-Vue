@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <div id="app" v-cloak>
+    <div id="app" v-cloak >
       <header class="container">
           <div class="header__content">
             <a href="index.html" class="header__logo">Kinopoisk</a>
@@ -33,12 +33,33 @@
           <div class="movies">
             <app-movie
               v-for="movie in movies"
-              :key="movie"
+              :key="movie.filmId"
               :nameru="movie.nameRu"
+              :filmid="movie.filmId"
               :posterpreview="movie.posterUrlPreview"
               :genres="movie.genres"
               :rating="movie.rating"
+              :modal="modal"
+              @open="open"
             ></app-movie>
+
+
+            <teleport to='body' >
+              <app-modal 
+                v-if="modal"
+                :nameru="modalMovie.nameRu"
+                :posterpreview="modalMovie.posterUrlPreview"
+                :genres="modalMovie.genres"
+                :rating="modalMovie.rating"
+                :year="modalMovie.year"
+                :filmlength="modalMovie.filmLength"
+                :description="modalMovie.description"
+                :modal="modal"
+                @close="close"
+                @keydown.esc="close"
+              ></app-modal>
+            </teleport>
+
           </div>
         </div>
     </div>
