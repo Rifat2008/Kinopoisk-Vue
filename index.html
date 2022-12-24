@@ -18,7 +18,7 @@
 <body>
 
     <div id="app" v-cloak >
-      <header class="container">
+      <header class="container" >
           <div class="header__content">
             <a href="index.html" class="header__logo">Kinopoisk</a>
             <form @submit.prevent="submitHandler">
@@ -29,7 +29,7 @@
             </form>
           </div>
         </header>
-        <div class="container">
+        <div class="container" >
           <div class="movies">
             <app-movie
               v-for="movie in movies"
@@ -43,7 +43,6 @@
               @open="open"
             ></app-movie>
 
-
             <teleport to='body' >
               <app-modal 
                 v-if="modal"
@@ -56,7 +55,6 @@
                 :description="modalMovie.description"
                 :modal="modal"
                 @close="close"
-                @keydown.esc="close"
               ></app-modal>
             </teleport>
 

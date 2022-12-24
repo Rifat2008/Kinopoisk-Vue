@@ -52,9 +52,9 @@
     position: relative;
   }
 
-  .movie:nth-child(1n + 13) {
+  /*.movie:nth-child(1n + 13) {
     display: none;
-  }
+  }*/
   
   .movie__cover-inner {
     position: relative;
@@ -149,10 +149,14 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .modal__card>:not(:last-child) {
+    margin-bottom: 15px;
+  }
   
   .modal__movie-backdrop {
-    width: 200px;
-    margin: 0 auto
+    width: 50%;
+    margin: 0 auto;
   }
   
   .modal__movie-info {
@@ -161,8 +165,14 @@
   
   .modal__button-close {
     padding: 5px;
-    margin: 10px;
     align-self: center;
+    font-family: "Open Sans", sans-serif;
+    transition: all 0.22s;
+  }
+
+  .modal__button-close:hover {
+    cursor: pointer;
+    opacity: 0.8;
   }
   
   .modal__movie-site {

@@ -54,7 +54,8 @@ const App = {
         },
         close() {
             this.modal = false; 
-        }
+        },
+        
     },
     components: {
         'app-movie': {
@@ -155,9 +156,6 @@ const App = {
         }
     }
 };
-
-
-
 
 Vue.createApp(App).mixin(getDataMixin).mount('#app');
 
