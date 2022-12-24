@@ -13,9 +13,7 @@ const App = {
         }
     },
     computed: {
-        nonScrollableClass() {
-            return this.modal ? 'stop-scrolling' : '';
-        },
+        
         isFirstPageActive() {
             return this.currentPage === 1;
           },
@@ -42,11 +40,10 @@ const App = {
 
             if (this.inputValue) {
                 this.getMovies(apiSearchUrl);
-            
                 this.inputValue = "";
               }
         },
-        async open(id) {
+        async openModal(id) {
             const resp = await fetch(this.apiMovieDetails + id, {
               headers: {
                 "Content-Type": "application/json",
@@ -57,9 +54,25 @@ const App = {
 
             this.modalMovie = respData;
             this.modal = true;
+
+            document.body.classList.add("stop-scrolling");
+
+            window.addEventListener("keydown", (e) => {
+                if (e.keyCode === 27) {
+                    this.modal = false;
+                    document.body.classList.remove("stop-scrolling");
+                }
+            });
+
+            window.addEventListener("click", (e) => {
+                if (e.target === this.modalMovie) {
+                  closeModal();
+                }
+            });
         },
-        close() {
+        closeModal() {
             this.modal = false; 
+            document.body.classList.remove("stop-scrolling");
         },
         nextPage() {
             if(this.currentPage !== 20) {
@@ -84,7 +97,7 @@ const App = {
             this.currentPage = 1;
             let api = this.apiTop + this.currentPage;
             this.getMovies(api);   
-        }
+        },
     },
     components: {
         'app-movie': {
@@ -153,6 +166,7 @@ const App = {
             props: ['nameru', 'posterpreview', 'genres', 'rating', 'year', 'filmlength', 'webUrl', 'description'],
             emits: ['close'],
             template: `
+                <div class="modal-backdrop" @click="$emit('close')"></div>
                 <div class="modal">
                     <div class="modal__card">
                         <img 
@@ -169,10 +183,10 @@ const App = {
                             <li class="modal__movie-genre">
                                 Жанр - {{getGenres(genres)}}
                             </li>
-                            <li class="modal__movie-runtime">
+                            <li v-if="filmlength" class="modal__movie-runtime">
                                 Время - {{filmlength}} минут
                             </li>
-                            <li >Сайт: <a class="modal__movie-site" :href="webUrl">{{webUrl}}</a></li>
+                            <li v-if="webUrl">Сайт: <a class="modal__movie-site" :href="webUrl">{{webUrl}}</a></li>
                             <li class="modal__movie-overview">Описание - {{description}}</li>
                         </ul>
                         <button type="button" class="modal__button-close" @click="$emit('close')">

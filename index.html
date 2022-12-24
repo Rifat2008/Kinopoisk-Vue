@@ -17,8 +17,8 @@
 </head>
 <body>
 
-    <div id="app" v-cloak >
-      <header class="container" >
+    <div id="app" v-cloak>
+      <header class="container">
           <div class="header__content">
             <a href="index.html" class="header__logo">Kinopoisk</a>
             <form @submit.prevent="submitHandler">
@@ -29,7 +29,7 @@
             </form>
           </div>
         </header>
-        <div class="container" >
+        <div class="container">
           <div class="movies">
             <app-movie
               v-for="movie in movies"
@@ -40,12 +40,13 @@
               :genres="movie.genres"
               :rating="movie.rating"
               :modal="modal"
-              @open="open"
+              @open="openModal"
             ></app-movie>
 
             <teleport to='body' >
               <app-modal 
                 v-if="modal"
+                :key="modalMovie.filmId"
                 :nameru="modalMovie.nameRu"
                 :posterpreview="modalMovie.posterUrlPreview"
                 :genres="modalMovie.genres"
@@ -53,8 +54,7 @@
                 :year="modalMovie.year"
                 :filmlength="modalMovie.filmLength"
                 :description="modalMovie.description"
-                :modal="modal"
-                @close="close"
+                @close="closeModal"
               ></app-modal>
             </teleport>
 
@@ -70,6 +70,11 @@
 
         </div>
     </div>
+
+    <footer>
+      
+      <span class="footer-text">&copy; 2022,Кинопоиск</span>
+    </footer>
 
       
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

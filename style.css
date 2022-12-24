@@ -127,20 +127,27 @@
   
   .modal {
     position: fixed;
-    left: 0;
+    left: 25%;
+    right: 25%;
     top: 0;
-    z-index: 100;
-    width: 100%;
     height: 100%;
+    z-index: 100;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
     transition: width 2s;
   }
 
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
   .modal__card {
-    margin: auto;
-    background-color: #ffffff;
-    max-width: 600px;
+    margin: 0 auto;
+    max-width: 100%;
     padding: 16px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     background-color: #1a191f;
@@ -247,6 +254,19 @@
   letter-spacing: 0.06em;
   background-color: #F1CDB3;
   color: #292929;
+}
+
+footer {
+  height: 80px;
+  padding: 10px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.footer-text {
+  justify-content: center;
+  align-self: end;
 }
 
   
