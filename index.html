@@ -59,6 +59,15 @@
             </teleport>
 
           </div>
+          
+          <div class="pagination-buttons">
+            <button class="arrow prev-page-arrow" :disabled="isFirstPageActive" @click="firstPage"><<</button>
+            <button class="arrow prev-page-arrow" :disabled="isFirstPageActive" @click="prevPage"><</button>
+            <div class="current-page">{{currentPage}}</div>
+            <button class="arrow next-page-arrow" :disabled="isLastPageActive" @click="nextPage">></button>
+            <button class="arrow next-page-arrow" :disabled="isLastPageActive" @click="lastPage">>></button>
+          </div>
+
         </div>
     </div>
 

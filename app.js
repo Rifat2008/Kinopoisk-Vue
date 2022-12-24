@@ -1,20 +1,27 @@
 const App = {
     data() {
         return {
-            apiKey: '8c8e1a50-6322-4135-8875-5d40a5420d86',
-            apiTop: 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=1',
+            apiKey: 'e467ec5b-1628-45bf-844c-f994b8295c79',
+            apiTop: 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=',
             apiSearch: 'https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=',
-            apiMovieDetails : "https://kinopoiskapiunofficial.tech/api/v2.2/films/",
+            apiMovieDetails: "https://kinopoiskapiunofficial.tech/api/v2.2/films/",
             movies: null,
             inputValue: '',
             modal: false,
-            modalMovie: null
+            modalMovie: null,
+            currentPage: 1
         }
     },
     computed: {
         nonScrollableClass() {
             return this.modal ? 'stop-scrolling' : '';
-        }
+        },
+        isFirstPageActive() {
+            return this.currentPage === 1;
+          },
+        isLastPageActive() {
+            return this.currentPage === 20;
+        },
     },
     mounted() {  
         this.getMovies(this.apiTop);
@@ -28,7 +35,6 @@ const App = {
               },
             });
             const {films} = await resp.json();
-
             this.movies = films;
           },
         submitHandler() {
@@ -55,7 +61,30 @@ const App = {
         close() {
             this.modal = false; 
         },
-        
+        nextPage() {
+            if(this.currentPage !== 20) {
+                this.currentPage++;
+                let api = this.apiTop + this.currentPage;
+                this.getMovies(api);
+            }
+        },
+        prevPage() {
+            if(this.currentPage !== 1) {
+                this.currentPage--;
+                let api = this.apiTop + this.currentPage;
+                this.getMovies(api);
+            }
+        },
+        lastPage() {
+            this.currentPage = 20;
+            let api = this.apiTop + this.currentPage;
+            this.getMovies(api);
+        },
+        firstPage() {
+            this.currentPage = 1;
+            let api = this.apiTop + this.currentPage;
+            this.getMovies(api);   
+        }
     },
     components: {
         'app-movie': {
@@ -76,7 +105,9 @@ const App = {
                         <div class="movie__category">
                             {{getGenres(genres)}}
                         </div>
-                        <div class="movie__average" :class="getClassByRate(getRating(rating))">{{getRating(rating)}}</div>
+                        <div class="movie__average" 
+                            :class="rating ? getClassByRate(getRating(rating)) : getClassByRate(getRating(0)) "
+                        >{{ rating ? getRating(rating) : '' }}</div>
                     </div> 
                 </div>
             `,
@@ -98,7 +129,7 @@ const App = {
         
                             if (vote >= 10) {
                                 return vote = (vote * 0.1).toFixed(1);
-                            } else if (vote === 'null') {
+                            } else if (vote === 0) {
                                 return 'б/р';
                             } else return vote;  
         
@@ -108,8 +139,10 @@ const App = {
                               return "movie__average--green";
                             } else if (vote > 5) {
                               return "movie__average--orange";
-                            } else {
+                            } else if (vote > 0) {
                               return "movie__average--red";
+                            } else {
+                                return "movie__average--grey";
                             }
                           }
                     }

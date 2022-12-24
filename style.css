@@ -52,10 +52,6 @@
     position: relative;
   }
 
-  /*.movie:nth-child(1n + 13) {
-    display: none;
-  }*/
-  
   .movie__cover-inner {
     position: relative;
     height: 360px;
@@ -108,9 +104,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1a191f;
     color: #ffffff;
     font-size: 14px;
+    opacity: 0.85;
   }
   
   .movie__average--green {
@@ -123,6 +119,10 @@
   
   .movie__average--red {
     background-color:red;
+  }
+
+  .movie__average--gray {
+    opacity: 1;
   }
   
   .modal {
@@ -187,5 +187,67 @@
     height: 100%;
     overflow: hidden;
   }
+
+/*pagination buttons*/
+
+.pagination-buttons {
+  padding: 25px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.arrow {
+  width: 52px;
+  height: 52px;
+  background: #1a191f;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Georgia';
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.pagination-buttons>:not(:last-child) {
+  margin-right: 20px;
+}
+
+.prev-page-arrow {
+  border: 2px solid #CDCDCD;
+  color: #CDCDCD;
+}
+
+.prev-page-arrow:disabled, .next-page-arrow:disabled {
+  border: 2px solid #353535;
+  color: #353535;
+}
+
+.next-page-arrow {
+  border: 2px solid #F1CDB3;
+  color: #CDCDCD;
+}
+
+.current-page {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.06em;
+  background-color: #F1CDB3;
+  color: #292929;
+}
+
   
  
