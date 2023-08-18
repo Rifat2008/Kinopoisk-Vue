@@ -1,0 +1,273 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a191f;
+  font-family: "Open Sans", sans-serif;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header__content {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-size: 32px;
+  text-decoration: none;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.header__search {
+  padding: 8px;
+  border: 2px solid #1a191f;
+  border-radius: 5px;
+  outline: none;
+}
+
+.header__search:focus {
+  border: 2px solid #25ad37;
+}
+
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.movie {
+  width: 240px;
+  margin: 10px; 
+  position: relative;
+}
+
+.movie__cover-inner {
+  position: relative;
+  height: 360px;
+}
+
+.movie__cover {
+  max-width: 100%;
+  height: 100%;
+}
+
+.movie__cover--darkened {
+  background-color: #000000;
+  opacity: 0.1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.movie__cover--darkened:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.movie__info {
+  padding: 10px 0px;
+}
+
+.movie__title {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.movie__category {
+  font-size: 14px;
+  color: #ffd80e;
+}
+
+.movie__average {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 0;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.movie__average--green {
+  background-color:green;
+}
+
+.movie__average--orange {
+  background-color:orange;
+}
+
+.movie__average--red {
+  background-color:red;
+}
+
+.movie__average--gray {
+  opacity: 1;
+}
+
+.modal {
+  position: fixed;
+  left: 25%;
+  right: 25%;
+  top: 0;
+  height: 100%;
+  z-index: 100;
+  overflow: auto;
+  transition: width 2s;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.modal__card {
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 16px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+  background-color: #1a191f;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal__card>:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.modal__movie-backdrop {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.modal__movie-info {
+  margin-left: 20px;
+}
+
+.modal__button-close {
+  padding: 5px;
+  align-self: center;
+  font-family: "Open Sans", sans-serif;
+  transition: all 0.22s;
+}
+
+.modal__button-close:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.modal__movie-site {
+  color: #ffd80e
+}
+
+ul li {
+  padding: 5px;
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+/*pagination buttons*/
+
+.pagination-buttons {
+padding: 25px 0px;
+display: flex;
+justify-content: center;
+}
+
+.arrow {
+width: 52px;
+height: 52px;
+background: #1a191f;
+border-radius: 50%;
+flex-shrink: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+font-family: 'Georgia';
+font-size: 20px;
+line-height: 115%;
+letter-spacing: 0.06em;
+}
+
+.arrow:hover {
+cursor: pointer;
+}
+
+.pagination-buttons>:not(:last-child) {
+margin-right: 20px;
+}
+
+.prev-page-arrow {
+border: 2px solid #CDCDCD;
+color: #CDCDCD;
+}
+
+.prev-page-arrow:disabled, .next-page-arrow:disabled {
+border: 2px solid #353535;
+color: #353535;
+}
+
+.next-page-arrow {
+border: 2px solid #F1CDB3;
+color: #CDCDCD;
+}
+
+.current-page {
+width: 52px;
+height: 52px;
+border-radius: 50%;
+flex-shrink: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 20px;
+line-height: 115%;
+letter-spacing: 0.06em;
+background-color: #F1CDB3;
+color: #292929;
+}
+
+footer {
+height: 80px;
+padding: 10px;
+display: flex;
+text-align: center;
+justify-content: center;
+}
+
+.footer-text {
+justify-content: center;
+align-self: end;
+}
+
+
