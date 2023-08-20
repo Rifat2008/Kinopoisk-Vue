@@ -1,84 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./favicon.ico">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"/>
-    <style>
-      [v-cloak] {
-        display: none;
-      }
-    </style>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/icon-kp.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kinopoisk-VUE</title>
-</head>
-<body>
-
-    <div id="app" v-cloak>
-      <header class="container">
-          <div class="header__content">
-            <a href="index.html" class="header__logo">Kinopoisk</a>
-            <form @submit.prevent="submitHandler">
-              <input type="text" 
-              class="header__search" 
-              placeholder="Поиск" 
-              v-model="inputValue"/>
-            </form>
-          </div>
-        </header>
-        <div class="container">
-          <div class="movies">
-            <app-movie
-              v-for="movie in movies"
-              :key="movie.filmId"
-              :nameru="movie.nameRu"
-              :filmid="movie.filmId"
-              :posterpreview="movie.posterUrlPreview"
-              :genres="movie.genres"
-              :rating="movie.rating"
-              :modal="modal"
-              @open="openModal"
-            ></app-movie>
-
-            <teleport to='body' >
-              <app-modal 
-                v-if="modal"
-                :key="modalMovie.filmId"
-                :nameru="modalMovie.nameRu"
-                :posterpreview="modalMovie.posterUrlPreview"
-                :genres="modalMovie.genres"
-                :rating="modalMovie.rating"
-                :year="modalMovie.year"
-                :filmlength="modalMovie.filmLength"
-                :description="modalMovie.description"
-                @close="closeModal"
-              ></app-modal>
-            </teleport>
-
-          </div>
-          
-          <div class="pagination-buttons">
-            <button class="arrow prev-page-arrow" :disabled="isFirstPageActive" @click="firstPage"><<</button>
-            <button class="arrow prev-page-arrow" :disabled="isFirstPageActive" @click="prevPage"><</button>
-            <div class="current-page">{{currentPage}}</div>
-            <button class="arrow next-page-arrow" :disabled="isLastPageActive" @click="nextPage">></button>
-            <button class="arrow next-page-arrow" :disabled="isLastPageActive" @click="lastPage">>></button>
-          </div>
-
-        </div>
-    </div>
-
-    <footer>
-      
-      <span class="footer-text">&copy; 2022,Кинопоиск</span>
-    </footer>
-
-      
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="./app.js"></script>
-</body>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
