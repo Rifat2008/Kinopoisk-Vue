@@ -24,7 +24,7 @@
         getClassByRate(getRating(movie.rating)) 
         : getClassByRate(getRating(0)) "
       >
-        {{ movie.rating ? getRating(movie.rating) : 'б/р' }}
+        {{ movie.rating ? getRating(movie.rating) : '' }}
       </p>
 
     </div> 
@@ -58,8 +58,8 @@ export default {
 
       if (vote >= 10) {
         return vote = (vote * 0.1).toFixed(1);
-      } else if (vote === 0) {
-        return 'б/р';
+      } else if (vote == null) {
+        return '';
       } else return vote;  
 
     },

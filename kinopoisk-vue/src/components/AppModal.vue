@@ -16,7 +16,7 @@
         <li class="modal__movie-genre">
           Жанр - {{getGenres(modalMovie.genres)}}
         </li>
-        <li class="modal__movie-runtime">
+        <li v-if="modalMovie.filmLength" class="modal__movie-runtime">
           Время - {{modalMovie.filmLength}} минут
         </li>
         <li class="modal__movie-overview">Описание - {{modalMovie.description}}</li>
