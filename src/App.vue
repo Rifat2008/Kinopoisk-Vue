@@ -1,51 +1,62 @@
-<template >
-
-  <the-header @searchHandler="search"/>
-  <app-movies :movies="movies"/>
- 
+<template>
+  <div class="wrapper">
+    <the-header @searchHandler="search" />
+    <app-loader v-if="loading"/>
+    <app-movies v-else :movies="movies" />
+    <h2 v-if="noMovies" class="no-movies-title">Нет совпадений</h2>
+  </div>
 </template>
 
 <script>
-import { loadMovies } from './api';
 import AppMovies from './components/AppMovies.vue';
 import TheHeader from './components/TheHeader.vue';
+import AppLoader from './components/ui/AppLoader.vue'
 import { ref } from 'vue';
+import { apiEndpoints, fetchMovies } from './api';
 
 export default {
-  components: { TheHeader, AppMovies },
+  components: { TheHeader, AppMovies, AppLoader },
 
-  mounted() {  
-    this.fetchAndDisplayMovies(this.apiValue);
+  data() {
+    return {
+      movies: [],
+      currentPage: 1,
+      maxPage: 20,
+      prevScrollPosition: null,
+      apiEndpoint: apiEndpoints.topMovies,
+      noMovies: false,
+      loading: false
+    }
+  },
 
+  mounted() {
+    this.loadMovies(this.apiEndpoint);
     this.prevScrollPosition = ref(window.scrollY);
-
     window.addEventListener('scroll', this.debounce(this.handleScroll, 200));
   },
 
   beforeUnmount() {
-    window.addEventListener('scroll', this.debounce(this.handleScroll, 200));
-  },
-
-  data() {
-    return {
-      apiValue: 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS',
-      movies: [],
-      maxPage: 20,
-      currentPage: 1,
-      prevScrollPosition: null,
-    }
+    window.removeEventListener('scroll', this.debounce(this.handleScroll, 200));
   },
 
   methods: {
     async search(url) {
+      this.noMovies = false;
       this.movies = [];
-      this.fetchAndDisplayMovies(url);
-      this.apiValue = url;
+      this.loading = true;
+      await this.loadMovies(url);
+      this.loading = false;
+      this.apiEndpoint = url;
+      this.isSearchMoviesExist();
     },
 
-    async fetchAndDisplayMovies(url) {
-      const films = await loadMovies(url);
-      this.movies = this.movies.concat(films);
+    async loadMovies(url) {
+      try {
+        const films = await fetchMovies(url);
+        this.movies = this.movies.concat(films);
+      } catch (error) {
+        console.error('Ошибка при загрузке фильмов', error);
+      }
     },
 
     debounce(func, delay) {
@@ -74,19 +85,17 @@ export default {
     },
 
     nextPage() {
-      if(this.currentPage !== this.maxPage) {
+      if (this.currentPage !== this.maxPage) {
         this.currentPage++;
-        let api = this.apiValue + '&page=' + this.currentPage;
-        this.fetchAndDisplayMovies(api);
+        let api = `${this.apiEndpoint}&page=${this.currentPage}`;
+        this.loadMovies(api);
       }
     }, 
-
+    isSearchMoviesExist() {
+      if (this.movies.length === 0) {
+        this.noMovies = true;
+      }
+    }
   }
-
 }
-
 </script>
-
-<style>
-
-</style>

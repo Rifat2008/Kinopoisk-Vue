@@ -8,7 +8,7 @@
         @open="openModal"
       />
     </div>
-
+    
     <teleport to='body' >
       <app-modal 
         v-if="modal"
@@ -25,6 +25,7 @@
 
 import MovieCard from './MovieCard.vue';
 import AppModal from './AppModal.vue';
+import {getMovieInfo} from '../api';
 
 export default {
   components:{MovieCard, AppModal},
@@ -38,8 +39,6 @@ export default {
 
   data() {
     return {
-      apiKey: 'e467ec5b-1628-45bf-844c-f994b8295c79',
-      apiMovieDetails: "https://kinopoiskapiunofficial.tech/api/v2.2/films/",
       modal: false,
       modalMovie: null,
     }
@@ -48,15 +47,9 @@ export default {
   methods: {
 
     async openModal(id) {
-      const resp = await fetch(this.apiMovieDetails + id, {
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-KEY": this.apiKey,
-        },
-      });
-      const respData = await resp.json();
+      const movieInfo = await getMovieInfo(id);
 
-      this.modalMovie = respData;
+      this.modalMovie = movieInfo;
       this.modal = true;
 
       document.body.classList.add("stop-scrolling");
