@@ -2,7 +2,7 @@
 
   <div 
     class="movie" 
-    @click="open"
+    @click="openModal()"
   >
     <div class="movie__cover-inner">
       <img
@@ -12,13 +12,7 @@
       />
       <p class="movie__cover--darkened"></p>
     </div>
-
     <div class="movie__info">
-      
-      <p class="movie__title">{{movie.nameRu}}</p>
-
-      <p class="movie__category">{{getGenres(movie.genres)}}</p>
-
       <p class="movie__average" 
         :class="movie.rating ? 
         getClassByRate(getRating(movie.rating)) 
@@ -26,25 +20,57 @@
       >
         {{ movie.rating ? getRating(movie.rating) : '' }}
       </p>
-
     </div> 
-
   </div>
+
+  <app-modal 
+    v-if="modal && selected===movie.filmId"
+    :key="movie.filmId"
+    :modalMovieId="movie.filmId"
+    @close="closeModal"
+  />
 
 </template>
 
 <script>
+import AppModal from './AppModal.vue';
+
 export default {
-  emits:['open'],
+  components: {AppModal},
+
+  data() {
+    return {
+      modal: false,
+    }
+  },
+
+  emits: ['select'],
+
   props: {
     movie: {
       type: Object
+    },
+    selected: {
+      type: Number
     }
   },
 
   methods: {
-    open() {
-      this.$emit('open', this.movie.filmId); 
+    openModal() {
+      if (this.selected !== this.movie.filmId) {
+        this.$emit('select', this.movie.filmId);
+        this.modal = true;
+
+        window.addEventListener("keydown", (e) => {
+          if (e.key === 'Escape') {
+            this.modal = false;
+          }
+        });
+      }
+    },
+
+    closeModal() {
+      this.modal = false;
     },
 
     getGenres(el) {

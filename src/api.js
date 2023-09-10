@@ -1,5 +1,6 @@
 const API_KEY = 'e467ec5b-1628-45bf-844c-f994b8295c79';
 const API_MOVIE_DETAILS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/';
+const API_MOVIE_VIDEOS = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/';
 
 export const apiEndpoints = {
   topMovies: 'https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS',
@@ -31,4 +32,15 @@ export async function getMovieInfo(id) {
   });
   const movieInfo = await resp.json();
   return movieInfo;
+}
+
+export async function getMovieTrailer(id) {
+  const resp = await fetch(API_MOVIE_VIDEOS + id + '/videos', {
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-KEY": API_KEY,
+    },
+  });
+  const movieTrailer = await resp.json();
+  return movieTrailer;
 }

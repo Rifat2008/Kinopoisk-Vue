@@ -21,7 +21,7 @@ export default {
     return {
       movies: [],
       currentPage: 1,
-      maxPage: 20,
+      maxPage: 2, //max=20
       prevScrollPosition: null,
       apiEndpoint: apiEndpoints.topMovies,
       noMovies: false,
